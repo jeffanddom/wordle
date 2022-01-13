@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "lib": [
+      "ES2019",
+      "dom"
+    ],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true, // required for modules with default exports
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ],
+      "*": [
+        "./src/types/untyped-modules/*"
+      ]
+    },
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "./src/types/overrides",
+      "./node_modules/@types",
+    ]
+  },
+  "exclude": [
+    "dist",
+    "out",
+    "node_modules"
+  ]
+}
