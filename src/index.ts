@@ -25,7 +25,12 @@ function bestGuess(words: Set<string>): string {
           continue
         }
 
-        inexactScore += 1
+        // Only credit the inexact score if this is the first time we have done
+        // so for this letter. Otherwise, we incorrectly give advantage to words
+        // with double-letters.
+        if (w.indexOf(w[p]) == p) {
+          inexactScore += 1
+        }
 
         if (other[p] == w[p]) {
           exactScore += 1
@@ -41,8 +46,6 @@ function bestGuess(words: Set<string>): string {
     const scoreB = b[1] + 3 * b[2]
     return scoreB - scoreA
   })
-
-  console.log(sorted)
 
   return sorted[0][0]
 }
@@ -111,11 +114,11 @@ async function main(): Promise<void> {
     }
   }
 
-  var guess = "arose"
-
   var candidates = words
+  var guess = bestGuess(candidates)
+
   while (true) {
-    console.log(`Guess: ${guess}`)
+    console.log(`${guess} <- guess`)
     const input = await reader.getLine()
     for (var i = 0; i < 5; i++) {
       switch (input[i]) {
@@ -133,12 +136,13 @@ async function main(): Promise<void> {
           break
       }
     }
-
-    console.log("remaining candidates")
-    console.log(candidates)
+    
+    console.log(`remaining candidates: ${candidates.size}`)
+    if (candidates.size < 10) {
+      console.log(candidates)
+    }
 
     guess = bestGuess(candidates)
-    console.log(guess)
   }
 }
 
